@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 
-class HomeSceen extends StatelessWidget {
+class HomeScreen extends StatelessWidget {
   static const String routeName = 'homeScreen';
-  const HomeSceen({super.key});
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(),
+      body: Container(
+       decoration: BoxDecoration(
+         image: DecorationImage(
+             image: AssetImage("assets/Splashscreen"),fit: BoxFit.cover
+         )
+       ),
+      ),
+    );
   }
 }

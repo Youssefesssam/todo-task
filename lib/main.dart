@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_task/ui/screens/HomeScreen.dart';
+import 'package:todo_task/ui/screens/splashScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,10 +14,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: HomeSceen.routeName,
+      initialRoute: SplashScreen.routeName,
       routes: {
-        HomeSceen.routeName:(_)=>HomeSceen()
+        HomeScreen.routeName:(_)=>HomeScreen(),
+        SplashScreen.routeName:(_)=>SplashScreen(),
       },
     );
   }
 }
+
