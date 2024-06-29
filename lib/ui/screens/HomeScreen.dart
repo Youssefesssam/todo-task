@@ -8,13 +8,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Container(
-       decoration: BoxDecoration(
-         image: DecorationImage(
-             image: AssetImage("assets/Splashscreen"),fit: BoxFit.cover
-         )
-       ),
-      ),
+
     );
   }
 }
