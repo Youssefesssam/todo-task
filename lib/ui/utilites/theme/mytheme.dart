@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class MyTheme{
 
-  static const Color PrimaryColor =  Color(0xff367ae0);
+  static const Color PrimaryColor =  Color(0xff176ce8);
   static const Color White =  Color(0xffffffff);
   static const Color black =  Color(0xff393939);
   static const Color green =  Color(0xff3df105);
@@ -25,7 +25,12 @@ class MyTheme{
         fontSize: 22,
         fontWeight: FontWeight.bold,
         color: White
-      )
+      ),
+        titleSmall: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w400,
+        color: black
+    )
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       selectedItemColor: PrimaryColor,
@@ -40,7 +45,13 @@ class MyTheme{
             side: BorderSide(color: White,width: 4)),
 
     ),
-
+    bottomSheetTheme:BottomSheetThemeData(
+      shape: RoundedRectangleBorder(
+          borderRadius:BorderRadius.only(
+            topRight: Radius.circular(20),
+            topLeft: Radius.circular(20),
+          ))
+    )
   );
 
 }

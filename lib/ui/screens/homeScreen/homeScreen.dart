@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:todo_task/ui/screens/homeScreen/settingTab/settingTab.dart';
+import 'package:todo_task/ui/screens/homeScreen/taskList/addTaskBottomSheet.dart';
+import 'package:todo_task/ui/screens/homeScreen/taskList/taskListTab.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'homeScreen';
@@ -11,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
-
+  List<Widget>tabs=[TaskList(),SettingsTab()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: buildBottomNavigationBar(),
       floatingActionButton: buildContainer(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
+     body: tabs[selectedIndex],
     );
   }
 
@@ -29,7 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
       height: 70.0,
       width: 70.0,
       child: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            showAddTaskBottomSheet();
+          },
           child: const Icon(
             Icons.add,
           ),
@@ -39,8 +44,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      toolbarHeight: MediaQuery.of(context).size.height * 0.18,
       title: Text("ToDo List", style: Theme.of(context).textTheme.titleLarge),
+      backgroundColor: Color(0xff176ce8),
     );
   }
 
@@ -73,4 +78,16 @@ class _HomeScreenState extends State<HomeScreen> {
   BottomNavigationBarItem buildBottomNavigationBarItem(
           IconData icon, String label) => BottomNavigationBarItem(
           icon: Icon(icon,size: 35,), label: label);
+
+  void showAddTaskBottomSheet() {
+    showModalBottomSheet(
+      isScrollControlled: true,
+        context: context,
+        builder: (context)=>Container(
+            child: Padding(
+              padding:MediaQuery.of(context).viewInsets ,
+              child: AddTaskBottomSheet(),
+            ))
+    );
+  }
 }

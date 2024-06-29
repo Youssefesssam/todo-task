@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_task/ui/screens/homeScreen/HomeScreen.dart';
-import 'package:todo_task/ui/screens/splashScreen.dart';
+import 'package:todo_task/ui/screens/homeScreen/homeScreen.dart';
+import 'package:todo_task/ui/screens/SplashScreen/splashScreen.dart';
 import 'package:todo_task/ui/utilites/theme/mytheme.dart';
 
 void main() {
