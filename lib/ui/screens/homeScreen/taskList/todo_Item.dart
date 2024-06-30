@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:todo_task/ui/utilites/theme/mytheme.dart';
 
 class TodoItem extends StatefulWidget {
   String description="";
@@ -51,10 +52,47 @@ class _TodoItemState extends State<TodoItem> {
             ],
           ),
           child: Container(
-            height: 90,
+            padding: const EdgeInsets.only(left: 20),
+            height: MediaQuery.of(context).size.height*.1,
             child: Row(
               children: [
-                Text(widget.description)
+                Container(
+                  margin: const EdgeInsets.all( 10),
+                  width: 4,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: MyTheme.PrimaryColor,
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Task",style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          color: MyTheme.PrimaryColor,fontSize: 25)
+                      ),
+                      const SizedBox(height: 5),
+                      Container(
+                        child: Row(
+                          children: [
+                            Text("data",style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                color: MyTheme.black,fontSize: 22,fontWeight: FontWeight.w400),),
+                            const SizedBox(width: 5),
+
+                          Icon(Icons.access_time_sharp,size: 18,)
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                const Spacer(),
+                Container(
+                  margin: const EdgeInsets.only(right: 20),
+                    child:const Icon(Icons.check_circle_rounded,color: MyTheme.PrimaryColor,size: 55,)
+
+                )
               ],
             ),
           ),

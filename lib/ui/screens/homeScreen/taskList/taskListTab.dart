@@ -1,6 +1,6 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_task/ui/screens/homeScreen/taskList/todoItem.dart';
+import 'package:todo_task/ui/screens/homeScreen/taskList/todo_Item.dart';
 import 'package:todo_task/ui/utilites/theme/mytheme.dart';
 
 class TaskList extends StatelessWidget {
@@ -55,7 +55,7 @@ class TaskList extends StatelessWidget {
               itemBuilder: (context, index) {
                 return TodoItem(description: description, nameTask: nameTask,);
               },
-               itemCount: 50,
+               itemCount: 37,
               ),
           ),
         ),
