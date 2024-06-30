@@ -11,15 +11,14 @@ class AddTaskBottomSheet extends StatefulWidget {
 class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   var selectedDate = DateTime.now();
   var formKey = GlobalKey<FormState>();
-  String nameTask = '';
-
-  String description = '';
-
+  String nameTask='' ;
+  String description='' ;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.5,
-      margin: const EdgeInsets.all(40),
+      height: MediaQuery.of(context).size.height*0.55,
+      padding: const EdgeInsets.all(30),
+      margin: const EdgeInsets.all(30),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -38,9 +37,10 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                 children: [
                   Padding(
                     padding: EdgeInsets.all(8),
+
                     child: TextFormField(
-                      onChanged: (text) {
-                        nameTask = text;
+                      onChanged: (text){
+                        nameTask=text;
                       },
                       validator: (text) {
                         if (text == null || text.isEmpty) {
@@ -58,9 +58,10 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   ),
                   Padding(
                     padding: EdgeInsets.all(8),
+
                     child: TextFormField(
-                      onChanged: (text) {
-                        description = text;
+                      onChanged: (text){
+                        description=text;
                       },
                       validator: (text) {
                         if (text == null || text.isEmpty) {
@@ -80,28 +81,29 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   ),
                   Padding(
                     padding: EdgeInsets.all(8),
+
                     child: Text(
                       'Select Date',
                       style: Theme.of(context).textTheme.titleSmall,
                       textAlign: TextAlign.start,
                     ),
                   ),
+
                   Padding(
                     padding: EdgeInsets.all(8),
+
                     child: InkWell(
                         onTap: () {
                           ShowCalender();
                         },
                         child: Text(
                           '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(
-                                  fontSize: 20, fontWeight: FontWeight.w600),
+                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              fontSize: 20, fontWeight: FontWeight.w600),
                           textAlign: TextAlign.center,
                         )),
                   ),
+
                   Padding(
                     padding: EdgeInsets.all(8),
                     child: Container(

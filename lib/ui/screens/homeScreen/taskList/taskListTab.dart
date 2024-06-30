@@ -4,7 +4,9 @@ import 'package:todo_task/ui/screens/homeScreen/taskList/todoItem.dart';
 import 'package:todo_task/ui/utilites/theme/mytheme.dart';
 
 class TaskList extends StatelessWidget {
-  const TaskList({super.key});
+  String description="";
+  String nameTask="";
+   TaskList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,7 @@ class TaskList extends StatelessWidget {
             margin: EdgeInsets.all(20),
             child: ListView.builder(
               itemBuilder: (context, index) {
-                return Card();
+                return TodoItem(description: description, nameTask: nameTask,);
               },
                itemCount: 50,
               ),
