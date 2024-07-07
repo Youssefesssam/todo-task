@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_task/firebase/firebase.dart';
+import 'package:todo_task/taskModel.dart';
 import 'package:todo_task/ui/utilites/theme/mytheme.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
@@ -11,12 +13,13 @@ class AddTaskBottomSheet extends StatefulWidget {
 class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   var selectedDate = DateTime.now();
   var formKey = GlobalKey<FormState>();
-  String nameTask='' ;
-  String description='' ;
+  String nameTask = '';
+  String description = '';
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height*0.55,
+      height: MediaQuery.of(context).size.height * 0.55,
       padding: const EdgeInsets.all(30),
       margin: const EdgeInsets.all(30),
       child: Column(
@@ -25,115 +28,118 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
           Text(
             "Add new Task",
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontSize: 30,
-                  color: MyTheme.black,
-                ),
+              fontSize: 30,
+              color: MyTheme.black,
+            ),
             textAlign: TextAlign.center,
           ),
           Form(
-              key: formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(8),
-
-                    child: TextFormField(
-                      onChanged: (text){
-                        nameTask=text;
-                      },
-                      validator: (text) {
-                        if (text == null || text.isEmpty) {
-                          return "please enter task title";
-                        }
-                        return null;
-                      },
-                      decoration: const InputDecoration(
-                          labelText: "Enter new task",
-                          labelStyle: TextStyle(
-                            color: MyTheme.black,
-                            fontSize: 20,
-                          )),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8),
-
-                    child: TextFormField(
-                      onChanged: (text){
-                        description=text;
-                      },
-                      validator: (text) {
-                        if (text == null || text.isEmpty) {
-                          return "please enter task description";
-                        }
-                        return null;
-                      },
-                      decoration: const InputDecoration(
-                        labelText: "Enter task description",
-                        labelStyle: TextStyle(
-                          color: MyTheme.black,
-                          fontSize: 20,
-                        ),
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      labelText: "Task",
+                      hintText: "Enter new task",
+                      suffixIcon: const Icon(Icons.task_alt_outlined),
+                      focusColor: MyTheme.black,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                      maxLines: 4,
                     ),
+                    cursorColor: MyTheme.PrimaryColor,
+                    onChanged: (text) {
+                      nameTask = text;
+                    },
+                    validator: (text) {
+                      if (text == null || text.isEmpty) {
+                        return "Please enter task title";
+                      }
+                      return null;
+                    },
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(8),
-
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      labelText: "Description",
+                      hintText: "Enter task description",
+                      suffixIcon: const Icon(Icons.description),
+                      focusColor: MyTheme.black,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    cursorColor: MyTheme.PrimaryColor,
+                    onChanged: (text) {
+                      description = text;
+                    },
+                    validator: (text) {
+                      if (text == null || text.isEmpty) {
+                        return "Please enter task description";
+                      }
+                      return null;
+                    },
+                    maxLines: 2,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(
+                    'Select Date',
+                    style: Theme.of(context).textTheme.titleSmall,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: InkWell(
+                    onTap: () {
+                      showCalendar();
+                    },
                     child: Text(
-                      'Select Date',
-                      style: Theme.of(context).textTheme.titleSmall,
-                      textAlign: TextAlign.start,
+                      '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          fontSize: 20, fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.center,
                     ),
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      addTask();
 
-                  Padding(
-                    padding: EdgeInsets.all(8),
-
-                    child: InkWell(
-                        onTap: () {
-                          ShowCalender();
-                        },
-                        child: Text(
-                          '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
-                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                              fontSize: 20, fontWeight: FontWeight.w600),
-                          textAlign: TextAlign.center,
-                        )),
-                  ),
-
-                  Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.50,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          color: MyTheme.PrimaryColor,
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Center(
-                          child: InkWell(
-                              onTap: () {
-                                addTask();
-                              },
-                              child: Text(
-                                "Add",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge
-                                    ?.copyWith(fontSize: 25),
-                              ))),
+                    },
+                    child: Text(
+                      "Add",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(fontSize: 25),
                     ),
-                  )
-                ],
-              ))
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      primary: MyTheme.PrimaryColor,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
         ],
       ),
     );
   }
 
-  void ShowCalender() async {
+  void showCalendar() async {
     var chosenDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -141,12 +147,24 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
       lastDate: DateTime.now().add(const Duration(days: 1825)),
     );
     if (chosenDate != null) {
-      selectedDate = chosenDate;
+      setState(() {
+        selectedDate = chosenDate;
+      });
     }
-    setState(() {});
   }
 
   void addTask() {
-    if (formKey.currentState?.validate() == true) {}
+    if (formKey.currentState?.validate() == true) {
+      TaskModel taskModel = TaskModel(
+        title: nameTask,
+        description: description,
+        date: selectedDate,
+      );
+      FirebaseFunctions.addTask(taskModel).timeout(Duration(milliseconds: 500),onTimeout: (){
+        print("task added successfully");
+        Navigator.pop(context);
+      }
+      );
+    }
   }
 }

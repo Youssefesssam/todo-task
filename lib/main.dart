@@ -1,5 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_task/ui/screens/homeScreen/homeScreen.dart';
+ import 'package:todo_task/ui/screens/homeScreen/homeScreen.dart';
 import 'package:todo_task/ui/screens/SplashScreen/splashScreen.dart';
 import 'package:todo_task/ui/utilites/theme/mytheme.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,6 +11,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  //await FirebaseFirestore.instance.disableNetwork();
+  FirebaseFirestore.instance.settings =
+      Settings(cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED);
   runApp(const MyApp());
 }
 
@@ -24,7 +28,7 @@ class MyApp extends StatelessWidget {
       initialRoute: HomeScreen.routeName,
       routes: {
         HomeScreen.routeName:(_)=>HomeScreen(),
-        SplashScreen.routeName:(_)=>SplashScreen(),
+        SplashScreen.routeName:(_)=>const SplashScreen(),
       },
       theme: MyTheme.lightTheme  ,
     );

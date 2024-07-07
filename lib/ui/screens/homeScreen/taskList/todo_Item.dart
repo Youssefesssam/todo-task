@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:todo_task/ui/utilites/theme/mytheme.dart';
 
-class TodoItem extends StatefulWidget {
-  String description="";
-  String nameTask="";
-  TodoItem({super.key,required this.description,required this.nameTask});
+import '../../../../taskModel.dart';
 
-  @override
-  State<TodoItem> createState() => _TodoItemState();
-}
+class TodoItem extends StatelessWidget {
+  TaskModel taskModel;
+  TodoItem({super.key,required this.taskModel});
 
-class _TodoItemState extends State<TodoItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +24,6 @@ class _TodoItemState extends State<TodoItem> {
         color: Colors.white,
         elevation: 10,
         child: Slidable(
-
           endActionPane:  ActionPane(
             motion: const DrawerMotion(),
             children: [
@@ -53,12 +48,12 @@ class _TodoItemState extends State<TodoItem> {
           ),
           child: Container(
             padding: const EdgeInsets.only(left: 20),
-            height: MediaQuery.of(context).size.height*.1,
+            height: MediaQuery.of(context).size.height*.13,
             child: Row(
               children: [
                 Container(
                   margin: const EdgeInsets.all( 10),
-                  width: 4,
+                  width: 4 ,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
                     color: MyTheme.PrimaryColor,
@@ -69,23 +64,29 @@ class _TodoItemState extends State<TodoItem> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Task",style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      Text(taskModel.title??"",style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           color: MyTheme.PrimaryColor,fontSize: 25)
                       ),
-                      const SizedBox(height: 5),
-                      Container(
-                        child: Row(
-                          children: [
-                            Text("data",style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                color: MyTheme.black,fontSize: 22,fontWeight: FontWeight.w400),),
-                            const SizedBox(width: 5),
+                      const SizedBox(height: 6),
+                      Row(
+                        children: [
+                          Text(taskModel.description??"",style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              color: MyTheme.black,fontSize: 22,fontWeight: FontWeight.w400) ,
+                          ),
+                          const SizedBox(width: 5),
 
-                          Icon(Icons.access_time_sharp,size: 18,)
-                          ],
-                        ),
-                      )
+                        Icon(Icons.access_time_sharp,size: 20,)
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+
+                      Text('${taskModel.date?.day}/${taskModel.date?.month}/${taskModel.date?.year}'??"",style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: MyTheme.black,fontSize: 12,fontWeight: FontWeight.w400) ,
+                    ),
                     ],
+
                   ),
+
                 ),
                 const Spacer(),
                 Container(
@@ -95,6 +96,7 @@ class _TodoItemState extends State<TodoItem> {
                 )
               ],
             ),
+
           ),
         ),
       ),
