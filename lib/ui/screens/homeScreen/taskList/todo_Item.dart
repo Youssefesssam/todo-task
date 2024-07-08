@@ -29,7 +29,6 @@ class TodoItem extends StatelessWidget {
             children: [
               SlidableAction(
                 autoClose: true,
-                flex: 1,
                 onPressed: (_){},
                 backgroundColor: const Color(0xFF147AEE),
                 foregroundColor: Colors.white,
