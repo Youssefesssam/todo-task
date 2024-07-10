@@ -65,8 +65,12 @@ class _TaskListState extends State<TaskList> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
+
                         MyTheme.PrimaryColor,
-                        Color(0xff0033ff),
+                        MyTheme.PrimaryColor,
+                        Color(0xff7be5d8),
+                        MyTheme.PrimaryColor,
+
                       ],
                     ),
                   ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_task/ui/screens/homeScreen/settingTab/settingTab.dart';
 import 'package:todo_task/ui/screens/homeScreen/taskList/addTaskBottomSheet.dart';
 import 'package:todo_task/ui/screens/homeScreen/taskList/taskListTab.dart';
+import 'package:todo_task/ui/utilites/theme/mytheme.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'homeScreen';
@@ -32,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
       height: 70.0,
       width: 70.0,
       child: FloatingActionButton(
+        backgroundColor: MyTheme.PrimaryColor,
           onPressed: () {
             showAddTaskBottomSheet();
           },
@@ -45,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       title: Text("ToDo List", style: Theme.of(context).textTheme.titleLarge),
-      backgroundColor: Color(0xff176ce8),
+      backgroundColor: MyTheme.PrimaryColor,
     );
   }
 

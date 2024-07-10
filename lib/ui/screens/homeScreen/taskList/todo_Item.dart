@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_task/firebase/firebase.dart';
+import 'package:todo_task/provider/provider.dart';
 import 'package:todo_task/ui/utilites/theme/mytheme.dart';
 
 import '../../../../taskModel.dart';
@@ -10,6 +13,7 @@ class TodoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ListProvider listProvider =Provider.of<ListProvider>(context);
     return Container(
       margin: const EdgeInsets.only(top: 20, bottom: 20),
       decoration: BoxDecoration(
@@ -30,15 +34,18 @@ class TodoItem extends StatelessWidget {
               SlidableAction(
                 autoClose: true,
                 onPressed: (_){},
-                backgroundColor: const Color(0xFF147AEE),
+                backgroundColor:MyTheme.PrimaryColor,
                 foregroundColor: Colors.white,
                 icon: Icons.edit,
                 label: 'Edite',
               ),
               SlidableAction(
                 autoClose: true,
-                onPressed: (_){},
-                backgroundColor: const Color(0xe8e70606),
+                onPressed: (_){
+                  FirebaseFunctions.delete(taskModel);
+                        listProvider.getAllTasksFromFireStore();
+                },
+                backgroundColor: const Color(0xf4cc2626),
                 foregroundColor: Colors.white,
                 icon: Icons.delete,
                 label: 'Delete',
@@ -60,7 +67,7 @@ class TodoItem extends StatelessWidget {
                 ),
                 Container(
                   margin: const EdgeInsets.all(10),
-                  child: Column(
+                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(taskModel.title??"",style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -74,14 +81,22 @@ class TodoItem extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
 
-                        Icon(Icons.access_time_sharp,size: 20,)
+                        const Icon(Icons.access_time_sharp,size: 20,)
                         ],
                       ),
                       const SizedBox(height: 6),
+                      Column(
+                        children: [
+                          const Icon(Icons.access_time_sharp,size: 10,),
 
-                      Text('${taskModel.date?.day}/${taskModel.date?.month}/${taskModel.date?.year}'??"",style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: MyTheme.black,fontSize: 12,fontWeight: FontWeight.w400) ,
-                    ),
+                          Text('${taskModel.date?.day}/${taskModel.date?.month}/${taskModel.date?.year}'??"",
+                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              color: MyTheme.black,fontSize: 12,fontWeight: FontWeight.w400) ,
+                          ),
+
+                        ],
+                      )
+
                     ],
 
                   ),
@@ -90,7 +105,8 @@ class TodoItem extends StatelessWidget {
                 const Spacer(),
                 Container(
                   margin: const EdgeInsets.only(right: 20),
-                    child:const Icon(Icons.check_circle_rounded,color: MyTheme.PrimaryColor,size: 55,)
+                    child:const Icon(Icons.check_circle_rounded,
+                      color: MyTheme.PrimaryColor,size: 55,)
 
                 )
               ],

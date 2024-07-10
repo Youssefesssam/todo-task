@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_task/firebase/firebase.dart';
+import 'package:todo_task/provider/provider.dart';
 import 'package:todo_task/taskModel.dart';
 import 'package:todo_task/ui/utilites/theme/mytheme.dart';
 
@@ -15,9 +17,10 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   var formKey = GlobalKey<FormState>();
   String nameTask = '';
   String description = '';
-
+late ListProvider listProvider;
   @override
   Widget build(BuildContext context) {
+     listProvider = Provider.of<ListProvider>(context);
     return Container(
       height: MediaQuery.of(context).size.height * 0.55,
       padding: const EdgeInsets.all(30),
@@ -116,18 +119,18 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                       addTask();
 
                     },
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      primary: MyTheme.PrimaryColor,
+                    ),
                     child: Text(
                       "Add",
                       style: Theme.of(context)
                           .textTheme
                           .titleLarge
                           ?.copyWith(fontSize: 25),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      primary: MyTheme.PrimaryColor,
                     ),
                   ),
                 )
@@ -162,6 +165,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
       );
       FirebaseFunctions.addTask(taskModel).timeout(Duration(milliseconds: 500),onTimeout: (){
         print("task added successfully");
+        listProvider.getAllTasksFromFireStore();
         Navigator.pop(context);
       }
       );
