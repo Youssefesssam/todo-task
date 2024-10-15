@@ -19,10 +19,6 @@ class TaskList extends StatefulWidget {
 
 class _TaskListState extends State<TaskList> {
 
-  String description="";
-
-  String nameTask="";
-
   @override
   Widget build(BuildContext context) {
     var listProvider = Provider.of<ListProvider>(context);
@@ -37,7 +33,13 @@ class _TaskListState extends State<TaskList> {
             Container(
               width: double.infinity,
               height: MediaQuery.of(context).size.height * .13,
-              color: MyTheme.PrimaryColor,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30)),
+                color: MyTheme.PrimaryColor,
+
+              ),
             ),
             EasyDateTimeLine(
               initialDate: listProvider.selectedDate,
@@ -48,14 +50,18 @@ class _TaskListState extends State<TaskList> {
               headerProps: const EasyHeaderProps(
                 monthPickerType: MonthPickerType.switcher,
                 dateFormatter: DateFormatter.fullDateDMY(),
-                monthStyle: TextStyle(color: Colors.white,fontSize: 25,backgroundColor: MyTheme.PrimaryColor),
+                monthStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,backgroundColor: MyTheme.PrimaryColor),
                 selectedDateStyle: TextStyle(color: Colors.white,fontSize: 20)
 
               ),
               dayProps: const EasyDayProps(
                 borderColor: Colors.white,
                 todayHighlightColor: MyTheme.PrimaryColor,
-                todayStyle: DayStyle(dayStrStyle: TextStyle(color: Colors.white,fontSize: 25,)),
+                todayStyle: DayStyle(
+                    dayStrStyle: TextStyle(
+                      color: Colors.white,fontSize: 25,)),
                 todayHighlightStyle: TodayHighlightStyle.withBackground,
                 dayStructure: DayStructure.dayStrDayNum,
                 activeDayStyle: DayStyle(
@@ -82,7 +88,7 @@ class _TaskListState extends State<TaskList> {
 
         Expanded(
           child: Container(
-            margin: EdgeInsets.all(20),
+            margin: const EdgeInsets.all(20),
             child: ListView.builder(
               itemBuilder: (context, index) {
                 return TodoItem(taskModel: listProvider.taskList[index] ,);

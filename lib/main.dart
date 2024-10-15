@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_task/provider/provider.dart';
+import 'package:todo_task/taskModel.dart';
+import 'package:todo_task/ui/screens/homeScreen/edite/edite.dart';
  import 'package:todo_task/ui/screens/homeScreen/homeScreen.dart';
 import 'package:todo_task/ui/screens/SplashScreen/splashScreen.dart';
 import 'package:todo_task/ui/utilites/theme/mytheme.dart';
@@ -33,6 +35,7 @@ class MyApp extends StatelessWidget {
       routes: {
         HomeScreen.routeName:(_)=>HomeScreen(),
         SplashScreen.routeName:(_)=>const SplashScreen(),
+        Edite.routeName:(_)=> Edite(taskModel: TaskModel(title: '', description: '', date: DateTime.now())),
       },
       theme: MyTheme.lightTheme  ,
     );

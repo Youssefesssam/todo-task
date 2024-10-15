@@ -6,6 +6,8 @@ import '../taskModel.dart';
 class ListProvider extends ChangeNotifier{
   List<TaskModel>taskList=[];
   DateTime selectedDate = DateTime.now();
+  String nameTask = '';
+  String description = '';
 
 
   Future<void> getAllTasksFromFireStore() async {
@@ -31,5 +33,17 @@ class ListProvider extends ChangeNotifier{
   void changeSelecteDate (DateTime newSelectDate){
     selectedDate =newSelectDate;
     getAllTasksFromFireStore();
+  }
+  void setTitle (String task){
+    nameTask= task;
+  }
+  void setDescription (String descr){
+    description=descr;
+  }
+  String getTitle (){
+    return nameTask;
+  }
+  String getDescription (){
+    return description;
   }
 }

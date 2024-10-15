@@ -26,6 +26,16 @@ class FirebaseFunctions {
   static Future<void> delete(TaskModel taskModel){
     return getTasksCollection().doc(taskModel.id).delete();
 
+  }
+  static Future<void> updateTask(TaskModel taskModel){
+    return getTasksCollection().doc(taskModel.id).update({
+    'title': taskModel.title,
+    'description': taskModel.description,
+    'date': taskModel.date,
+    'isDone': taskModel.isDone,
+    });
+
 
   }
+
 }

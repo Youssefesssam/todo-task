@@ -6,21 +6,21 @@ import 'package:todo_task/taskModel.dart';
 import 'package:todo_task/ui/utilites/theme/mytheme.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
-  const AddTaskBottomSheet({super.key});
+  const AddTaskBottomSheet({super.key,});
 
   @override
   State<AddTaskBottomSheet> createState() => _AddTaskBottomSheetState();
 }
 
 class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
+
   var selectedDate = DateTime.now();
   var formKey = GlobalKey<FormState>();
-  String nameTask = '';
-  String description = '';
+
 late ListProvider listProvider;
   @override
   Widget build(BuildContext context) {
-     listProvider = Provider.of<ListProvider>(context);
+    listProvider = Provider.of<ListProvider>(context);
     return Container(
       height: MediaQuery.of(context).size.height * 0.55,
       padding: const EdgeInsets.all(30),
@@ -31,8 +31,9 @@ late ListProvider listProvider;
           Text(
             "Add new Task",
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontSize: 30,
-              color: MyTheme.black,
+              fontSize: 33,
+              fontWeight: FontWeight.bold,
+              color: MyTheme.PrimaryColor,
             ),
             textAlign: TextAlign.center,
           ),
@@ -42,7 +43,7 @@ late ListProvider listProvider;
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(10),
                   child: TextFormField(
                     decoration: InputDecoration(
                       labelText: "Task",
@@ -55,7 +56,8 @@ late ListProvider listProvider;
                     ),
                     cursorColor: MyTheme.PrimaryColor,
                     onChanged: (text) {
-                      nameTask = text;
+                     listProvider.setTitle(text);
+                     print("${listProvider.getTitle()}");
                     },
                     validator: (text) {
                       if (text == null || text.isEmpty) {
@@ -79,7 +81,7 @@ late ListProvider listProvider;
                     ),
                     cursorColor: MyTheme.PrimaryColor,
                     onChanged: (text) {
-                      description = text;
+                      listProvider.setDescription(text);
                     },
                     validator: (text) {
                       if (text == null || text.isEmpty) {
@@ -122,8 +124,7 @@ late ListProvider listProvider;
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
-                      ),
-                      primary: MyTheme.PrimaryColor,
+                      ), backgroundColor: MyTheme.PrimaryColor,
                     ),
                     child: Text(
                       "Add",
@@ -159,16 +160,15 @@ late ListProvider listProvider;
   void addTask() {
     if (formKey.currentState?.validate() == true) {
       TaskModel taskModel = TaskModel(
-        title: nameTask,
-        description: description,
+        title: listProvider.nameTask,
+        description: listProvider.description,
         date: selectedDate,
       );
-      FirebaseFunctions.addTask(taskModel).timeout(Duration(milliseconds: 500),onTimeout: (){
-        print("task added successfully");
+      FirebaseFunctions.addTask(taskModel);
         listProvider.getAllTasksFromFireStore();
         Navigator.pop(context);
-      }
-      );
+
+
     }
   }
 }
